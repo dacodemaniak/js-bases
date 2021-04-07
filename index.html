@@ -6,6 +6,9 @@
 
         <title>JS - Bases</title>
 
+        <!-- Load stylesheets -->
+        <link href="./assets/css/layout.css" rel="stylesheet">
+
         <!-- Link to script -->
         <script src="./assets/js/app.js"></script>
     </head>
@@ -16,7 +19,9 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Id</th>
                             <th>Nom</th><!-- Table Header -->
+                            <th>Prénom</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -31,6 +36,18 @@
             </div>
         </div>
 
+        <div class="outer-loader">
+            <div class="inner-loader">
+                <img src="./assets/images/loader.gif" alt="Wait... while processing">
+            </div>
+        </div>
 
+        <template id="row-template">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </template>
     </body>
 </html>

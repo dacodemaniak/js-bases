@@ -114,6 +114,13 @@ document.addEventListener(
             // 4. Attach full Element to tbody
             tableBody.appendChild(tableRow);
         }
+
+        // Hide loader animation
+        setTimeout(() => {
+            const outerLoader = document.querySelector('.outer-loader');
+            outerLoader.classList.add('hidden');  
+        }, 1000);
+
     }
 );
 
