@@ -100,19 +100,26 @@ document.addEventListener(
         console.log(namesOnly);
         
         for (const name of namesFromMap) {
-            console.log(`Objet name => ${JSON.stringify(name)}`);
-            // 1. Create a TR element
-            const tableRow = createDOMElement('tr');
+            const rowTemplate = document.getElementById('row-template');
+            const row = rowTemplate.content.cloneNode(true);
+            
+            // Get dividers of the row
+            dividers = row.children[0];
+            [...dividers.children].forEach((divider, index) => {
+                switch (index) {
+                    case 0:
+                        divider.textContent = name.id;
+                        break;
+                    case 1:
+                        divider.textContent = name.nom;
+                        break;
+                    case 2:
+                        divider.textContent = name.prenom;
+                        break;
+                }
+            });
 
-            // 2. Create a TD element
-            const tableDivider = createDOMWithBody('td');
-            tableDivider.textContent = name.nom;
-
-            // 3. Set tableDivider as child of tableRow
-            tableRow.appendChild(tableDivider);
-
-            // 4. Attach full Element to tbody
-            tableBody.appendChild(tableRow);
+             tableBody.appendChild(row);
         }
 
         // Hide loader animation
@@ -123,28 +130,6 @@ document.addEventListener(
 
     }
 );
-
-const helloWho = 'Hello World';
-let yourName = 'Jean-Luc';
-yourName = 'JLA';
-
-
-
-/**  Output our brand new array
-for (let i=0; i < names.length; i++) {
-    console.log('Bonjour ' + names[i]);
-}
-
-names.forEach((name, count) => {
-    console.log('Hola ' + name + '(' + count + ')');
-});
-
-for (const name of names) {
-    console.log('Hello ' + name);
-}
-
-//names.forEach(function (name) {} )
-*/
 
 
 
