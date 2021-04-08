@@ -1,3 +1,4 @@
+import $ from './modules/jquery.module.js';
 import People from './classes/people.class.js';
 
 /**
@@ -18,6 +19,12 @@ const createDOMWithBody = (element) => {
 document.addEventListener(
     'DOMContentLoaded',
     (event) => { // Callback function
+        // Modifier le titre du document
+        $('h1').text('Personnes');
+
+        // en Vanilla JS (JS Natif)
+        //document.querySelector('h1').textContent = 'People';
+
         // Array setting
         const names = [
             new People(10, 'Aubert', 'Jean-Luc'),
@@ -89,13 +96,13 @@ document.addEventListener(
             [...dividers.children].forEach((divider, index) => {
                 name.setNom('Tartempion');
                 switch (index) {
-                    case 0:
+                    case 1:
                         divider.textContent = name.getId();
                         break;
-                    case 1:
+                    case 2:
                         divider.textContent = name.getNom();
                         break;
-                    case 2:
+                    case 3:
                         divider.textContent = name.getPrenom();
                         break;
                 }
@@ -106,10 +113,28 @@ document.addEventListener(
 
         // Hide loader animation
         setTimeout(() => {
-            const outerLoader = document.querySelector('.outer-loader');
-            outerLoader.classList.add('hidden');  
+            $('.outer-loader').addClass('hidden');
+            //const outerLoader = document.querySelector('.outer-loader');
+            //outerLoader.classList.add('hidden');  
         }, 1000);
 
+        // Listen for a change on the check-uncheck-all element
+        $('[check-uncheck-all]').on(
+            'change', // Event triggered
+            (event) => { // Reaction as event triggered
+                
+                const checkbox = $(event.target);
+                console.log(checkbox.prop('checked') === true ? 'coché' : 'décoché');
+                if (checkbox.prop('checked') === true) {
+                    $('.item').attr('checked', 'checked');
+                    $('.item').prop('checked', true);
+                } else {
+                    $('.item').removeAttr('checked');
+                    $('.item').prop('checked', false);
+                }
+                console.log('Checkbox changed : ' + $('.item:checked').length);
+            }
+        );
     }
 );
 
