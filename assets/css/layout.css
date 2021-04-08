@@ -28,3 +28,9 @@ div.inner-loader {
 table tbody tr:nth-child(even) {
     background-color: rgba(12, 12, 200, .5);
 }
+
+[check-uncheck-all]:checked {
+    color: red;
+    background-color: red;
+    border: dotted 1px red;
+}

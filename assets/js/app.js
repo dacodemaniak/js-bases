@@ -1,5 +1,6 @@
 import $ from './modules/jquery.module.js';
 import People from './classes/people.class.js';
+import FormManager from './classes/form.class.js';
 
 /**
  * Entry point of our JS application
@@ -21,6 +22,9 @@ document.addEventListener(
     (event) => { // Callback function
         // Modifier le titre du document
         $('h1').text('Personnes');
+
+        $('[check-uncheck-all]').prop('checked', false);
+        $('[check-uncheck-all]').removeAttr('checked');
 
         // en Vanilla JS (JS Natif)
         //document.querySelector('h1').textContent = 'People';
@@ -126,15 +130,38 @@ document.addEventListener(
                 const checkbox = $(event.target);
                 console.log(checkbox.prop('checked') === true ? 'coché' : 'décoché');
                 if (checkbox.prop('checked') === true) {
-                    $('.item').attr('checked', 'checked');
-                    $('.item').prop('checked', true);
+                    $('[item-checkbox]').attr('checked', 'checked'); // Attribut
+                    $('[item-checkbox]').prop('checked', true); // Etat de la boîte
                 } else {
-                    $('.item').removeAttr('checked');
-                    $('.item').prop('checked', false);
+                    $('[item-checkbox]').removeAttr('checked');
+                    $('[item-checkbox]').prop('checked', false);
                 }
-                console.log('Checkbox changed : ' + $('.item:checked').length);
+                console.log('Checkbox changed : ' + $('[item-checkbox]:checked').length);
             }
         );
+
+        $('[item-checkbox]').on(
+            'change',
+            (event) => {
+                const itemChecked = $('[item-checkbox]:checked').length;
+                if (names.length === itemChecked) {
+                    $('[check-uncheck-all]').prop('checked', true);
+                    $('[check-uncheck-all]').attr('checked', 'checked');
+                } else {
+                    $('[check-uncheck-all]').prop('checked', false);
+                    $('[check-uncheck-all]').removeAttr('checked');
+                }
+            }
+        );
+
+        // Instancier le formulaire
+        const form = new FormManager();
+        form.addField('nom', {required: true});
+        form.addField('prenom', {required: true});
+        form.setFormReference('create-people');
+        form.setValidateButton('validate');
+
+        form.survey();
     }
 );
 

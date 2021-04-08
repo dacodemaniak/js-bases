@@ -7,6 +7,7 @@
         <title>JS - Bases</title>
 
         <!-- Load stylesheets -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <link href="./assets/css/layout.css" rel="stylesheet">
 
         <!-- Link to script -->
@@ -18,7 +19,7 @@
         <div class="container">
             <div App>
                 <h1>People</h1>
-                <table>
+                <table class="table table-condensed">
                     <thead>
                         <tr>
                             <th>
@@ -38,6 +39,19 @@
                         </tr>
                     </tfoot>
                 </table>
+
+                <form id="create-people">
+                    <div class="form-group">
+                        <input type="text" name="nom" placeholder="Nom..." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="prenom" placeholder="Prénom..." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-outline-default" type="reset">Annuler</button>
+                        <button class="btn btn-outline-success" type="submit" name="validate" disabled>Valider</button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -49,7 +63,7 @@
 
         <template id="row-template">
             <tr>
-                <td><input type="checkbox" class="item"></td>
+                <td><input type="checkbox" class="item" item-checkbox></td>
                 <td></td>
                 <td></td>
                 <td></td>
