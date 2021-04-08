@@ -1,3 +1,5 @@
+import People from './classes/people.class.js';
+
 /**
  * Entry point of our JS application
  */
@@ -18,33 +20,12 @@ document.addEventListener(
     (event) => { // Callback function
         // Array setting
         const names = [
-            {
-                id: 1,
-                nom: 'Aubert',
-                prenom: 'Jean-Luc'
-            },
-            {
-                id: 2,
-                nom: 'Bond',
-                prenom: 'James'
-            },
-            {
-                id: 3,
-                nom: 'Bauer',
-                prenom: 'Jack'
-            },
-            {
-                id: 3,
-                nom: 'Bauer',
-                prenom: 'Jack'
-            },
+            new People(10, 'Aubert', 'Jean-Luc'),
+            new People(1, 'Bond', 'James'),
+            new People(4, 'Lawson', 'Poppy'),
+            new People(2, 'Bauer', 'Jack')
         ];
-
-        names.push({
-            id: 4,
-            nom: 'Lawson',
-            prenom: 'William'
-        });
+        names.push(new People(3, 'Mulder', 'Fox'));
         
         // Set a Map object
         const mapNames = new Map();
@@ -99,22 +80,23 @@ document.addEventListener(
         namesOnly.sort();
         console.log(namesOnly);
         
-        for (const name of namesFromMap) {
+        for (const name of names) {
             const rowTemplate = document.getElementById('row-template');
             const row = rowTemplate.content.cloneNode(true);
             
             // Get dividers of the row
-            dividers = row.children[0];
+            const dividers = row.children[0];
             [...dividers.children].forEach((divider, index) => {
+                name.setNom('Tartempion');
                 switch (index) {
                     case 0:
-                        divider.textContent = name.id;
+                        divider.textContent = name.getId();
                         break;
                     case 1:
-                        divider.textContent = name.nom;
+                        divider.textContent = name.getNom();
                         break;
                     case 2:
-                        divider.textContent = name.prenom;
+                        divider.textContent = name.getPrenom();
                         break;
                 }
             });
