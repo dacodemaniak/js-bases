@@ -25,7 +25,9 @@ export default class People {
     }
 
     setDateNaissance(date) {
-        this.dateNaissance = date;
+        if (date instanceof Date) {
+            this.dateNaissance = date;
+        }
     }
 
     getId() {

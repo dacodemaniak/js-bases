@@ -6,15 +6,23 @@ import Api from './classes/api.class.js';
 /**
  * Entry point of our JS application
  */
+let names = [];
 
 const api = new Api();
-const datas = api.getPeople();
-datas.then((peoples) => {
+const promise = api.getPeople();
+promise.then((peoples) => {
     console.log(`Peoples are ready ${peoples.length}`);
 });
 
 const loadData = async () => {
-    const peoples = await api.getPeople(); // People datas are ready...
+    names = await api.getPeople(); // People datas are ready...
+    buildTable();
+    // Hide loader animation
+    setTimeout(() => {
+        $('.outer-loader').addClass('hidden');
+        //const outerLoader = document.querySelector('.outer-loader');
+        //outerLoader.classList.add('hidden');  
+    }, 1000);
 }
 loadData();
 
@@ -71,14 +79,6 @@ const buildTable = () => {
         tableBody.appendChild(row);
     }
 }
-
-// Array setting
-const names = [
-    new People(10, 'Aubert', 'Jean-Luc'),
-    new People(1, 'Bond', 'James'),
-    new People(4, 'Lawson', 'Poppy'),
-    new People(2, 'Bauer', 'Jack')
-];
 
 // Await for document loaded complete before to run
 document.addEventListener(
@@ -144,16 +144,6 @@ document.addEventListener(
         });
         namesOnly.sort();
         console.log(namesOnly);
-        
-
-        buildTable();
-
-        // Hide loader animation
-        setTimeout(() => {
-            $('.outer-loader').addClass('hidden');
-            //const outerLoader = document.querySelector('.outer-loader');
-            //outerLoader.classList.add('hidden');  
-        }, 1000);
 
         // Listen for a change on the check-uncheck-all element
         $('[check-uncheck-all]').on(
