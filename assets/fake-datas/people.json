@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "nom": "Aubert",
+        "prenom": "Jean-Luc",
+        "dateNaissance": "30/04/1968"
+    },
+    {
+        "id": 2,
+        "nom": "Bauer",
+        "prenom": "Jack",
+        "dateNaissance": "05/05/1992"
+    },
+    {
+        "id": 3,
+        "nom": "Lawson",
+        "prenom": "Poppy",
+        "dateNaissance": "03/09/1995"
+    },
+    {
+        "id": 4,
+        "nom": "Bond",
+        "prenom": "James",
+        "dateNaissance": "02/02/1924"
+    }
+]

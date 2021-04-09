@@ -1,10 +1,16 @@
 import $ from './modules/jquery.module.js';
 import People from './classes/people.class.js';
 import FormManager from './classes/form.class.js';
+import Api from './classes/api.class.js';
 
 /**
  * Entry point of our JS application
  */
+
+const api = new Api();
+api.getPeople();
+
+const form = new FormManager(); // Mon formulaire...
 
 function create(element) {
     return document.createElement(element);
@@ -32,7 +38,6 @@ const buildTable = () => {
 
     // Loop over names to create as many element as needed
     const tableBody = document.querySelector('tbody');
-    
 
     for (const name of names) {
         const rowTemplate = document.getElementById('row-template');
@@ -40,8 +45,8 @@ const buildTable = () => {
         
         // Get dividers of the row
         const dividers = row.children[0];
+        const jqueryDividers = $(row).children('td');
         [...dividers.children].forEach((divider, index) => {
-            name.setNom('Tartempion');
             switch (index) {
                 case 1:
                     divider.textContent = name.getId();
@@ -173,11 +178,11 @@ document.addEventListener(
         );
 
         // Instancier le formulaire
-        const form = new FormManager();
         form.addField('nom', {required: true});
         form.addField('prenom', {required: true});
         form.setFormReference('create-people');
         form.setValidateButton('validate');
+        
         form.setCallbackFn(newPeople);
 
         form.survey();

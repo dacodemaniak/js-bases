@@ -33,9 +33,14 @@ export default class FormManager {
                 // Boucler sur les données du Map pour vérifier
                 this.formFields.forEach((options, field) => {
                     //const fieldObject = $('[name="' + field + '"]');
-                    const fieldObject = $(`[name="${field}"]`);
+                    const fieldObject = $(`[name="${field}"]`); // [name="nom"]
+                    const nativeField = document.querySelector(`[name="${field}"]`);
+                    
                     console.log(`Le champ ${field} contient : ${fieldObject.val()}`);
+                    console.log(`Le champ ${field} contient : ${nativeField.value}`);
+
                     console.log('Le champ ' + field + ' contient : ' + fieldObject.val());
+                    
                     if (fieldObject.val().trim().length === 0) {
                         isFormValid = false;
                     }
@@ -51,15 +56,14 @@ export default class FormManager {
         this.formReference.on(
             'submit',
             (event) => {
-                event.preventDefault();
-                const people = new People();
+                event.preventDefault(); // Cancel default event (form submission)
+                this.people = new People();
                 this.formFields.forEach((options, field) => {
                     const fieldObject = $(`[name="${field}"]`);
-                    people[field] = fieldObject.val();
+                    this.people[field] = fieldObject.val(); // Hydrate People attributes
                 });
-                console.log('Brand new People : ' + JSON.stringify(people));
+                console.log('Brand new People : ' + JSON.stringify(this.people));
                 this.callbackFn(people);
-                
             }
         );
 
