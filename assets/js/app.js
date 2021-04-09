@@ -8,7 +8,15 @@ import Api from './classes/api.class.js';
  */
 
 const api = new Api();
-api.getPeople();
+const datas = api.getPeople();
+datas.then((peoples) => {
+    console.log(`Peoples are ready ${peoples.length}`);
+});
+
+const loadData = async () => {
+    const peoples = await api.getPeople(); // People datas are ready...
+}
+loadData();
 
 const form = new FormManager(); // Mon formulaire...
 
@@ -78,12 +86,14 @@ document.addEventListener(
     (event) => { // Callback function
         // Modifier le titre du document
         $('h1').text('Personnes');
-
+        // en Vanilla JS (JS Natif)
+        //document.querySelector('h1').textContent = 'People';
+        
+        // Fix Firefox shadow status
         $('[check-uncheck-all]').prop('checked', false);
         $('[check-uncheck-all]').removeAttr('checked');
 
-        // en Vanilla JS (JS Natif)
-        //document.querySelector('h1').textContent = 'People';
+
         names.push(new People(3, 'Mulder', 'Fox'));
         
         // Set a Map object

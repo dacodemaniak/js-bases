@@ -15,7 +15,7 @@ export default class People {
     }
 
     setNom(nom) {
-        if (this.nom === '') {
+        if (this.nom === '' || this.nom === undefined) {
             this.nom = nom;
         }
     }
