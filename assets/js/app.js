@@ -16,6 +16,57 @@ const createDOMWithBody = (element) => {
     return document.createElement(element);
 }
 
+const newPeople = (people) => {
+    console.log(`Je récupère le people ${people.getNom()} à partir du formulaire`);
+    names.push(people);
+    console.log(names);
+    $('tbody tr').remove();
+    buildTable();
+}
+
+const buildTable = () => {
+
+    // Manipulate DOM to place total rows of names array
+    const totalRows = document.getElementById('total-rows');
+    totalRows.innerHTML = '<strong>' + names.length + '</strong> éléments';
+
+    // Loop over names to create as many element as needed
+    const tableBody = document.querySelector('tbody');
+    
+
+    for (const name of names) {
+        const rowTemplate = document.getElementById('row-template');
+        const row = rowTemplate.content.cloneNode(true);
+        
+        // Get dividers of the row
+        const dividers = row.children[0];
+        [...dividers.children].forEach((divider, index) => {
+            name.setNom('Tartempion');
+            switch (index) {
+                case 1:
+                    divider.textContent = name.getId();
+                    break;
+                case 2:
+                    divider.textContent = name.getNom();
+                    break;
+                case 3:
+                    divider.textContent = name.getPrenom();
+                    break;
+            }
+        });
+
+        tableBody.appendChild(row);
+    }
+}
+
+// Array setting
+const names = [
+    new People(10, 'Aubert', 'Jean-Luc'),
+    new People(1, 'Bond', 'James'),
+    new People(4, 'Lawson', 'Poppy'),
+    new People(2, 'Bauer', 'Jack')
+];
+
 // Await for document loaded complete before to run
 document.addEventListener(
     'DOMContentLoaded',
@@ -28,14 +79,6 @@ document.addEventListener(
 
         // en Vanilla JS (JS Natif)
         //document.querySelector('h1').textContent = 'People';
-
-        // Array setting
-        const names = [
-            new People(10, 'Aubert', 'Jean-Luc'),
-            new People(1, 'Bond', 'James'),
-            new People(4, 'Lawson', 'Poppy'),
-            new People(2, 'Bauer', 'Jack')
-        ];
         names.push(new People(3, 'Mulder', 'Fox'));
         
         // Set a Map object
@@ -64,12 +107,8 @@ document.addEventListener(
             });
 
 
-        // Manipulate DOM to place total rows of names array
-        const totalRows = document.getElementById('total-rows');
-        totalRows.innerHTML = '<strong>' + names.length + '</strong> éléments';
 
-        // Loop over names to create as many element as needed
-        const tableBody = document.querySelector('tbody');
+
         
         console.log('Begin loop');
         const namesFromMap = [...mapNames.values()].sort((obj1, obj2) => {
@@ -91,29 +130,8 @@ document.addEventListener(
         namesOnly.sort();
         console.log(namesOnly);
         
-        for (const name of names) {
-            const rowTemplate = document.getElementById('row-template');
-            const row = rowTemplate.content.cloneNode(true);
-            
-            // Get dividers of the row
-            const dividers = row.children[0];
-            [...dividers.children].forEach((divider, index) => {
-                name.setNom('Tartempion');
-                switch (index) {
-                    case 1:
-                        divider.textContent = name.getId();
-                        break;
-                    case 2:
-                        divider.textContent = name.getNom();
-                        break;
-                    case 3:
-                        divider.textContent = name.getPrenom();
-                        break;
-                }
-            });
 
-             tableBody.appendChild(row);
-        }
+        buildTable();
 
         // Hide loader animation
         setTimeout(() => {
@@ -160,6 +178,7 @@ document.addEventListener(
         form.addField('prenom', {required: true});
         form.setFormReference('create-people');
         form.setValidateButton('validate');
+        form.setCallbackFn(newPeople);
 
         form.survey();
     }
